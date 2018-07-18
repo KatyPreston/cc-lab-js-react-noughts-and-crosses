@@ -47,6 +47,11 @@ export default class NoughtsCrosses extends Component {
       if (gameWon) {
         this.setState({ gameWon })
         this.handleWin(player, win)
+      } else {
+        if (this.state.winner === 'NOBODY') return
+        if (!this.state.grid.includes(null)) {
+          this.nobodyWins()
+        }
       }
     }
   }
@@ -75,6 +80,10 @@ export default class NoughtsCrosses extends Component {
       gameWon: false,
       winner: null
     })
+  }
+
+  nobodyWins() {
+    this.setState({ winner: 'NOBODY' })
   }
 
   componentDidUpdate(prevProps, prevState) {
