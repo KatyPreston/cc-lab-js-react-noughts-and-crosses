@@ -8,7 +8,7 @@ export default class NoughtsCrosses extends Component {
     super(props)
 
     this.state = {
-      player: 'o',
+      player: 'O',
       grid: new Array(9).fill(null),
       winArray: new Array(9).fill(0),
       gameWon: false,
@@ -20,6 +20,8 @@ export default class NoughtsCrosses extends Component {
   }
 
   checkForWin(player) {
+    if (this.state.winner) return
+
     const grid = this.state.grid
     const wins = [
       [1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -47,11 +49,12 @@ export default class NoughtsCrosses extends Component {
       if (gameWon) {
         this.setState({ gameWon })
         this.handleWin(player, win)
-      } else {
-        if (this.state.winner === 'NOBODY') return
-        if (!this.state.grid.includes(null)) {
-          this.nobodyWins()
-        }
+      }
+    }
+
+    if (!this.state.winner) {
+      if (!this.state.grid.includes(null)) {
+        this.nobodyWins()
       }
     }
   }
@@ -61,7 +64,7 @@ export default class NoughtsCrosses extends Component {
     if (grid[index] || gameWon) return
 
     grid[index] = player
-    player === 'o' ? (player = 'x') : (player = 'o')
+    player === 'O' ? (player = 'X') : (player = 'O')
 
     this.setState({ player, grid }, () =>
       window.getSelection().removeAllRanges()
@@ -74,7 +77,7 @@ export default class NoughtsCrosses extends Component {
 
   resetGame() {
     this.setState({
-      player: 'o',
+      player: 'O',
       grid: new Array(9).fill(null),
       winArray: new Array(9).fill(0),
       gameWon: false,
@@ -83,7 +86,7 @@ export default class NoughtsCrosses extends Component {
   }
 
   nobodyWins() {
-    this.setState({ winner: 'NOBODY' })
+    this.setState({ winner: 'Nobody' })
   }
 
   componentDidUpdate(prevProps, prevState) {

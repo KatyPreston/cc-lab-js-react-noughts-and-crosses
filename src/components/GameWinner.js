@@ -4,7 +4,7 @@ const GameWinner = props => {
   if (!props.winner) return null
   return (
     <div className="game-winner">
-      <p>Player {props.winner} wins!!</p>
+      <p>{props.winner} wins!!</p>
       <button onClick={props.resetGame}>Play Again</button>
     </div>
   )
